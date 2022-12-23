@@ -1,0 +1,50 @@
+﻿<Page x:Class="VelvetEyebrows.Views.UpcomingEntriesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VelvetEyebrows.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UpcomingEntriesPage">
+
+    <DockPanel>
+        <Label DockPanel.Dock="Top" FontSize="35" FontWeight="Bold" Content="Ближайшие записи" Margin="0 0 0 25" />
+        <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding Services}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="2" BorderBrush="#FF4A6D" BorderThickness="1">
+                            <Grid Width="800" Background="{Binding Time, Converter={StaticResource timeToColorConverter}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Margin="7" Grid.Column="0">
+                                    <TextBlock FontSize="22" TextWrapping="Wrap" >
+                                        <Run FontWeight="SemiBold" Text="{ Binding Service.Title}" />
+                                        <LineBreak />
+                                        <Run Text="{ Binding Client.FirstName}"/> 
+                                        <Run Text="{ Binding Client.LastName}"/> 
+                                        <Run Text="{ Binding Client.Patronymic}"/> 
+                                        <Run Text="{Binding Client.Phone}"/>
+                                        <Run Text="{Binding Client.Email}"/>
+                                        <LineBreak />
+                                        <Run Text="{Binding StartTime,StringFormat={}{0:dd.MM.yyyy HH:mm}}"/>
+                                        <LineBreak/>
+                                        <Run Text="До начала: "/>
+                                        <Run Text="{Binding Time, Mode=OneWay, Converter={StaticResource timeSpanConverter}}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</Page>
